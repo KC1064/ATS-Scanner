@@ -75,32 +75,141 @@ with btn_col2:
     submit_btn2 = st.button("🛠️ Tips to Upgrade")
 with btn_col3:
     submit_btn3 = st.button("📊 ATS Score")
+    
+
+good_resume_details = """
+RESUME LANGUAGE SHOULD BE:
+- Using action words
+- Specific rather than general
+- Active rather than passive
+- Written to express not impress
+- Articulate rather than "flowery"
+- Fact-based (quantify and qualify)
+- Written for people who scan quickly
+
+TOP SIX RESUME MISTAKES:
+- Spelling and grammar errors
+- Missing email and phone information
+- Using passive language instead of "action" words
+- Not well organized, concise, or easy to skim
+- Not demonstrating results
+- Too long
+- Repeated use of same words
+
+DON'T:
+- Use personal pronouns (such as I)
+- Abbreviate
+- Use a narrative style
+- Use slang or colloquialisms
+- Include a picture
+- Include age or gender
+- List references
+- Start each line with a date
+
+DO:
+- Be consistent in format and content
+- Make it easy to read and follow, balancing white space
+- Use consistent spacing, underlining, italics, bold, and capitalization for emphasis
+- List headings (such as Experience) in order of importance
+- Within headings, list information in reverse chronological order (most recent first)
+- Avoid information gaps such as a missing summer
+
+Then go through the each section that are present in the resume and analyze according to 
+this points:
+
+PROFILE Section
+- A brief statement that highlights your career goals. Ideal for candidates with 
+limited professional experience, such as recent college or high school graduates.
+- A concise overview using active language to showcase your relevant experience, skills, 
+and accomplishments. Best for candidates with some professional background.
+
+EDUCATION Section
+- Check for proper formatting.
+- Add the degree and education.
+
+EXPERIENCE Section
+- Ideally each experience should have 2-3 points.
+- Make sure the dates are accurate and consistent in style, include the
+year and month
+- Scan the whole section for repetetive actions words and replace with different
+action words.
+
+SKILLS Section
+- Add tech stack under different subheadings
+- Example: Web Development: HTML, CSS, React, NextJS, Express
+
+PROJECTS Section
+- Ideally 3-4 projects with 2-3 points each.
+- Mention the skills you learned or used.
+- Scan the whole section for repetetive actions words and replace with different
+action words.
+
+ACHIEVEMENTS & ROLES Section
+- Write proper action words to say your achievements and roles 
+- Scan the whole section for repetetive actions words and replace with different
+action words.
+
+FOR WHOLE RESUME:
+- Don't use repetitive action words.
+- Check for spelling and grammar mistakes
+"""
+
 
 # --- SYSTEM PROMPTS ---
 sys_prompt1 = f"""
-Acts as Human Resource manager who has an experience of 20+ years. He is very experienced in the {input_role} field and is vastly knowledgeable.
+Acts as Human Resource manager who has an experience of 20+ years. You are very experienced in the {input_role} field and are vastly knowledgeable.
 
 Working:
-1. You need to analyze the given resume against the job descriptions: {input_text} and create a list of what the user has done right and what the user has done wrong.
-2. Also tell the user an overall summary of his resume.
+1. Analyze the given resume against the job description: {input_text}
+2. Create a concise, point-wise list of what the user has done right and what needs improvement
+3. Provide a brief overall summary of the resume in 3-5 bullet points maximum
+
+FORMAT YOUR RESPONSE:
+- Use bullet points
+- Be direct and specific
+- Prioritize the most important points
+- Keep the response concise and easy to scan
+
+RESUME BEST PRACTICES:
+{good_resume_details}
 """
 
 sys_prompt2 = f"""
-You are expert content writer and very experienced HR who has experience in crafting very well versed resumes that will pass through ATS scanners very easily. Resumes crafted by you have an ATS score of at least 85+.
+You are an expert content writer and very experienced HR who has experience crafting resumes that pass through ATS scanners easily with scores of 85+.
 
-You are assigned a job to give insights to a user who is applying for a job role of {input_role} and the job description are as follows {input_text}.
+Your task:
+1. Analyze the resume for a person applying for: {input_role}
+2. Compare it against this job description: {input_text}
+3. Provide specific, actionable improvements in a concise, point-wise format
 
-You need to tell the user what parts need modification and what they are.
+FORMAT YOUR RESPONSE:
+- Group feedback by resume sections (Profile, Experience, Skills, etc.)
+- Use bullet points for each suggestion
+- Be direct and specific
+- Include 1-2 examples of how to improve key points
+- Suggest the modifications for me to copy.
+
+RESUME BEST PRACTICES:
+{good_resume_details}
 """
 
 sys_prompt3 = f"""
-You are a very advanced ATS software who is very adept in scanning resume against the given role {input_role} and job description: {input_text}.
+You are an advanced ATS software scanning a resume against the role of {input_role} and this job description: {input_text}.
 
-You need to follow this sequence and generate the response accordingly:
-1. Understand the job role and job description
-2. Find the key words and highlight and match them to the user's resume
-3. Then calculate an ATS score based on your calculations
-4. At last give only the ATS score nothing else
+Your task:
+1. Identify key skills, qualifications, and requirements from the job description
+2. Match the user's resume with these instructions
+{good_resume_details}
+3. Score each section out of 100 based on relevance.
+4. Provide an overall ATS compatibility score by taking average of all the sections score.
+5. Suggest specific improvements to increase the match score.
+
+FORMAT YOUR RESPONSE:
+- Start with the numerical ATS score prominently displayed
+- Provide 3-5 bullet points explaining how the score was calculated
+- List top 10 matching keywords found
+- List top 10 missing keywords or qualifications
+- Keep the entire response concise and scannable
 """
 
 
